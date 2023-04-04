@@ -40,8 +40,19 @@ func sum(grades []float64) float64 {
 	return sum
 }
 
+func assessGrade(average float64) {
+	fmt.Println(average)
+	if average >= 60 {
+		fmt.Println("Congratulations, you are accepted!")
+	} else {
+		fmt.Println("We regret to inform you that we will not be able to offer you admission.")
+	}
+}
+
 func main() {
 	grades := getGrades()
+	average := sum(grades) / float64(len(grades))
 
-	fmt.Printf("%f\nCongratulations, you are accepted!", sum(grades)/float64(len(grades)))
+	assessGrade(average)
+
 }

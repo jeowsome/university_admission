@@ -63,4 +63,8 @@ status: Solved
 feedback:
   message: <html>Correct solution</html>
   time: "Tue, 04 Apr 2023 12:54:14 UTC"
+<<<<<<< HEAD
 record: -1
+=======
+record: 1
+>>>>>>> Initial commit
