@@ -7,8 +7,4 @@ content:
 - Special knowledge
 - Extensive training
 - Something special
-<<<<<<< HEAD
-current_task: 0
-=======
-current_task: 1
->>>>>>> Initial commit
+current_task: 2

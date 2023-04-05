@@ -1,0 +1,19 @@
+type: code
+files:
+- name: main.go
+  visible: true
+  text: "package main\n\nimport (\n\t\"fmt\"\n\t\"sort\"\n)\n\nfunc main() {\n   \
+    \ // DO NOT modify the code block below, it reads 4 int numbers from the stdin:\n\
+    \tvar num1, num2, num3, num4 int\n\tfmt.Scanln(&num1, &num2, &num3, &num4)\n\t\
+    nums := []int{num1, num2, num3, num4}\n\n    // Use the sort.SliceStable() function\
+    \ to sort the `nums` slice \n    // by the remainder of dividing each number by\
+    \ 5 below:\n\t?\n\n\tfmt.Println(nums) // output the sorted slice here!\n}"
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/24766#comment
+status: Failed
+feedback:
+  message: |
+    Failed test #2 of 3. Wrong answer
+  time: "Wed, 05 Apr 2023 17:07:13 UTC"
+record: -1
+submission_language: go

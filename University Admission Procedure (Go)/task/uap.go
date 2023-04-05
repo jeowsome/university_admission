@@ -4,8 +4,16 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
+	"strings"
 )
+
+type Student struct {
+	FirstName string
+	LastName  string
+	GPA       float64
+}
 
 const defaultRange = 3
 
@@ -49,10 +57,49 @@ func assessGrade(average float64) {
 	}
 }
 
-func main() {
-	grades := getGrades()
-	average := sum(grades) / float64(len(grades))
+func getApplicants(numApplicants int) []Student {
+	var students []Student
+	students = make([]Student, numApplicants)
 
-	assessGrade(average)
+	scanner := bufio.NewScanner(os.Stdin)
+
+	for i := 0; i < numApplicants; i++ {
+		scanner.Scan()
+		line := strings.Fields(scanner.Text())
+		fName, lName := line[0], line[1]
+		gpa, err := strconv.ParseFloat(line[2], 64)
+
+		if err != nil {
+			fmt.Println(err, gpa)
+		}
+		students[i].FirstName = fName
+		students[i].LastName = lName
+		students[i].GPA = gpa
+	}
+	return students
+}
+
+func main() {
+	var nApplicant, mAccepted int
+	fmt.Scan(&nApplicant)
+	fmt.Scan(&mAccepted)
+
+	studentList := getApplicants(nApplicant)
+	sort.Slice(studentList, func(i, j int) bool {
+		if studentList[i].GPA != studentList[j].GPA {
+			return studentList[i].GPA > studentList[j].GPA
+		}
+		return studentList[i].GPA < studentList[j].GPA
+	})
+
+	fmt.Println("Successful applicants:")
+
+	for _, student := range studentList[:mAccepted] {
+		fmt.Println(student.FirstName, student.LastName)
+	}
+	//grades := getGrades()
+	//average := sum(grades) / float64(len(grades))
+	//
+	//assessGrade(average)
 
 }
