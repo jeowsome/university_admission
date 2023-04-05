@@ -1,0 +1,21 @@
+<h2>Shadowing</h2>
+<div class="step-text">
+<p></p>
+<p>Here is the code example:</p>
+<pre><code class="language-go">...
+
+func main() {
+    var count int
+    fmt.Scan(&amp;count)
+
+    if count &gt; 5 {
+        count := 3
+        count += 1
+        fmt.Println(count)
+    }
+
+    fmt.Println(count)
+}
+</code></pre>
+<p>Which numbers will be printed if the input value is <code class="language-go">15</code>.</p>
+</div>

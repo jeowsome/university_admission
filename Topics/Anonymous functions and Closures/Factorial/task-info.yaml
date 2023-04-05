@@ -1,0 +1,32 @@
+type: code
+files:
+- name: main.go
+  visible: true
+  text: |-
+    package main
+
+    import "fmt"
+
+    func main() {
+        var number int
+        fmt.Scan(&number)
+
+        factorial := ?() ? {
+            f := 1
+            for i := 1; i <= number; i++ {
+                ?
+            }
+
+            ?
+        }?
+
+        fmt.Println(factorial)
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/22041#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Wed, 05 Apr 2023 08:20:51 UTC"
+record: -1
+submission_language: go

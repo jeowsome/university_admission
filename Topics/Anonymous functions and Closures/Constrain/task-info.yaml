@@ -1,0 +1,18 @@
+type: code
+files:
+- name: main.go
+  visible: true
+  text: "package main\n\nimport \"fmt\"\n\nconst (\n\tMin = 0\n\tMax = 100\n)\n\n\
+    func main() {\n    constraint := newConstraint(Min, Max)\n\n    var number int\n\
+    \    fmt.Scan(&number)\n\n    fmt.Println(constraint(number))\n}\n\nfunc newConstraint(a,\
+    \ b int) ? {\n    minValue := a\n    maxValue := b\n\n    return ? {\n       \
+    \ if ? < minValue {\n            return minValue\n        }\n        if num >\
+    \ ? {\n            return ?\n        }\n\n        return num\n    }\n}"
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/22042#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Wed, 05 Apr 2023 08:03:18 UTC"
+record: -1
+submission_language: go

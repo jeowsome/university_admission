@@ -1,0 +1,165 @@
+<h2>Anonymous functions and Closures</h2>
+<div class="step-text">
+<p>Today we continue learning about functions in Go. In this topic, we'll learn about functions that do not have a defined name. These functions are known as <strong>anonymous functions</strong> or <strong>function literals</strong>.</p>
+<h5 id="anonymous-functions">Anonymous functions</h5>
+<p>In Go, you cannot nest named functions. To access variables within the scope of their enclosing function, you need to use anonymous functions.</p>
+<p>An anonymous function has the same structure as a regular function, except it doesn't have a name. The function signature of an anonymous function looks like this:</p>
+<pre><code class="language-go">func() {}</code></pre>
+<p>Now you might be thinking, how to call an anonymous function?</p>
+<p>The first way is to assign the anonymous function to a variable, and then call that function using the variable's identifier:</p>
+<pre><code class="language-go">...
+
+func main() {
+    anonymousDirect := func(message string) {      // Direct assign
+        fmt.Println("Message:", message)
+    }
+    anonymousDirect("Direct assign")     // Message: Direct assign
+
+    var anonymousVariable = func(message string) { // Variable assign
+        fmt.Println("Message:", message)
+    }
+    anonymousVariable("Variable assign") // Message: Variable assign
+}</code></pre>
+<p>Thus, the variable replaces the function name. You can now call that anonymous function by using that variable.</p>
+<h5 id="direct-call">Direct call</h5>
+<p>And the other way is a direct call to the anonymous function:</p>
+<pre><code class="language-go">...
+
+func main() {
+    func() {
+        fmt.Println("Direct call")       // Direct call
+    }()
+
+    func(message string) {
+        fmt.Println("Message:", message) // Message: direct message!
+    }("direct message!")
+}</code></pre>
+<p>You can't call this function twice because it doesn't have a name. Let's take a closer look at the signature of the anonymous functions call. You might have noticed that both functions have a set of enclosed round brackets <code class="language-go">()</code> at the end. This set of round brackets tells the runtime to execute the code enclosed within the anonymous function body immediately.</p>
+<h5 id="passing-anonymous-functions-as-an-argument">Passing anonymous functions as an argument</h5>
+<p>Now that you know how to call anonymous functions, you should also know that we can pass them as arguments to other functions. Let's go ahead and take a look at an example:</p>
+<pre><code class="language-go">...
+
+func applyAnonymous(num int, anonymous func(num int)) {
+    anonymous(num)
+}
+
+func main() {
+    // Call applyAnonymous() with an anonymous function as the second argument:
+    applyAnonymous(21, func(num int) {
+        fmt.Println(num * 2) // 42
+    })
+}
+</code></pre>
+<p>The above example showcases how an anonymous function gets an <code class="language-go">int</code> number and outputs the value of the number multiplied by 2. It looks like a first example, using a parameter of a regular function <code class="language-go">applyAnonymous()</code> you are assigned an anonymous function to a variable name <code class="language-go">anonymous</code>.</p>
+<p>Remember that it is also possible to return values from anonymous functions by specifying the return type. The following example showcases how to create an anonymous function that returns an <code class="language-go">int</code> type value:</p>
+<pre><code class="language-go">...
+
+func applyAnonymous(num int, anonymous func(int) int) int {
+    return anonymous(num)
+}
+
+func main() {
+    result := applyAnonymous(21, func(n int) int {
+        return n * 2
+    })
+
+    fmt.Println(result) // 42
+}
+</code></pre>
+<p>You must define the complete function signature of the anonymous function, including the return type — <code class="language-go">anonymous func(int) int</code>.</p>
+<h5 id="shadowing">Shadowing</h5>
+<p>A common issue you might run into when working with anonymous functions is creating two or more variables with the same name and type. Shadowing is a process of re-declaring variables at the inner scopes. Sometimes it can lead to errors, but the rest of the time causes confusion. In the example below, the variable <code class="language-go">number</code> is declared in two different scopes:</p>
+<pre><code class="language-go">...
+
+func main() { // Main scope
+    number := 1
+    func() { // Inner scope
+        fmt.Println("Inner scope start:", number)
+        number := 2
+        fmt.Println("Inner scope end:", number)
+    }()
+    fmt.Println("Main scope:", number)
+}
+
+// Output:
+// Inner scope start: 1
+// Inner scope end: 2
+// Main scope: 1
+</code></pre>
+<p>You can see, that the <code class="language-go">number</code> variable has a strange last value output. Let's take apart the inner scope:</p>
+<ul>
+<li>
+<p>the <code class="language-go">fmt.Println</code> outputs the <code class="language-go">number</code> variable value: <code class="language-go">1</code> from the main scope;</p>
+</li>
+<li>
+<p>a new <code class="language-go">number</code> variable with value <code class="language-go">2</code> is declared within the inner scope;</p>
+</li>
+<li>
+<p>the <code class="language-go">fmt.Println</code> outputs the new <code class="language-go">number</code> variable value: <code class="language-go">2</code> from the inner scope.</p>
+</li>
+</ul>
+<p>Finally, the inner <code class="language-go">number</code> variable lifecycle is over with the end of the inner scope. The last call of the <code class="language-go">fmt.Println</code> outputs the original <code class="language-go">number</code> variable value <code class="language-go">1</code> from the main scope.</p>
+<p>In short, the new <code class="language-go">number</code> variable from the inner scope shadowed the original <code class="language-go">number</code> variable declared in the main scope.</p>
+<h5 id="closure">Closure</h5>
+<p>A closure is a special type of anonymous function. It can use variables from a parent scope that weren't passed to it as a parameter but instead were available before the anonymous function was declared.</p>
+<p>For a better understanding of the concept of closure, let's take a look at the following example:</p>
+<pre><code class="language-go">...
+
+func main() { // parent scope
+    number := 1
+    increment := func() {
+        number += 1
+    }
+
+    fmt.Println("Value before:", number) // Value before: 1
+    increment()
+    increment()
+    fmt.Println("Value after:", number)  // Value after: 3
+}</code></pre>
+<p>In the above example, the anonymous function <code class="language-go">increment()</code> is a closure because it can access the <code class="language-go">number</code> variable due to the following reasons:</p>
+<ul>
+<li>
+<p><code class="language-go">number</code> forms part of the parent scope — <code class="language-go">func main()</code>;</p>
+</li>
+<li>
+<p><code class="language-go">number</code> was available before <code class="language-go">increment()</code> was declared.</p>
+</li>
+</ul>
+<h5 id="closures-with-state">Closures with state</h5>
+<p>The previous example showcased how the <code class="language-go">increment()</code> anonymous function had access to the <code class="language-go">number</code> variable because it was defined on its parent scope. However, any other code defined within the <code class="language-go">main()</code> function also has access to the <code class="language-go">number</code> variable.</p>
+<p>Now you might be wondering, how could we isolate the <code class="language-go">number</code> variable so that no other code defined in the same scope has access to it?</p>
+<p>An important detail about closures is that they can still reference variables that they had access to during creation, even if those variables are no longer referenced elsewhere. To further explain this, let's take a look at the following example:</p>
+<pre><code class="language-go">...
+
+func main() {
+    increment := newIncrement()
+
+    fmt.Println(increment()) // 1
+    fmt.Println(increment()) // 2
+}
+
+func newIncrement() func() int {
+    var number int
+    return func() int {
+        number += 1
+        return number
+    }
+}
+</code></pre>
+<p>Let's explain how the <code class="language-go">newIncrement()</code> function works. It initializes the <code class="language-go">number</code> variable and then returns an anonymous function. Here we comply with two conditions: both <code class="language-go">number</code> and the anonymous function are parts of the same scope — <code class="language-go">func newIncrement()</code>, and the <code class="language-go">number</code> variable was available before the declaration of the anonymous function.</p>
+<p>Then, within the <code class="language-go">main()</code> function, we assign <code class="language-go">increment</code> to the <code class="language-go">newIncrement()</code> closure. After doing this, <code class="language-go">increment</code> becomes a function that has access to the <code class="language-go">number</code> variable that increments by <code class="language-go">1</code> in every call; however, no other code or functions outside the scope of <code class="language-go">newIncrement()</code> can access the <code class="language-go">number</code> variable.</p>
+<p>You can create as many increment functions as you need. Each call creates a new scope with itself <code class="language-go">number</code> variable and anonymous function to increment that variable.</p>
+<h5 id="conclusion">Conclusion</h5>
+<p>An anonymous function is a tool with many uses. You can restrict unwanted access (like in the example above) to a variable, create a setter for a variable (for example, check if the number is included in a defined range), and create a simple function using one line (for example convert degrees to radians), run the inline script (often use with a <code class="language-go">defer</code> statement) and a lot more. Let's repeat the main points:</p>
+<ul>
+<li>
+<p>An anonymous function is a nameless function — <code class="language-go">func(){}</code>;</p>
+</li>
+<li>
+<p>Anonymous functions can be declared within another function, be assigned to a variable, and even be declared and called directly;</p>
+</li>
+<li>
+<p>An anonymous function can access all previously declared variables that are in the same scope.</p>
+</li>
+</ul>
+</div>

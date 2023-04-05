@@ -1,0 +1,18 @@
+type: choice
+is_multiple_choice: true
+options:
+- text: Use the assigned variable name
+- text: Use a direct call
+- text: Use an unique identifier of the function
+- text: Use the assign parameter name of the regular function
+files:
+- name: main.go
+  visible: true
+  text: |+
+    // You can experiment here, it won’t be checked
+
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/22034#comment
+status: Solved
+record: -1
+local_check: false

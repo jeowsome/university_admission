@@ -1,0 +1,18 @@
+type: choice
+is_multiple_choice: false
+options:
+- text: "The function must have square brackets in the end: <code>func() {}[]</code>"
+- text: "The function must have an empty return statement: <code>func() {return}</code>"
+- text: "The function must have round brackets in the end: <code>func() {}()</code>"
+- text: "The function must have curly brackets in the end: <code>func() {}{}</code>"
+files:
+- name: main.go
+  visible: true
+  text: |+
+    // You can experiment here, it won’t be checked
+
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/22035#comment
+status: Solved
+record: -1
+local_check: false

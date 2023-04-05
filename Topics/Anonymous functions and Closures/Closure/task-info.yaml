@@ -1,0 +1,19 @@
+type: choice
+is_multiple_choice: true
+options:
+- text: The anonymous function and the variable must be part of the same scope
+- text: The anonymous function must be declared inside the <code>func main()</code>
+    scope
+- text: The variable must be global
+- text: The variable must be declared before the anonymous function
+files:
+- name: main.go
+  visible: true
+  text: |+
+    // You can experiment here, it won’t be checked
+
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/22037#comment
+status: Solved
+record: -1
+local_check: false

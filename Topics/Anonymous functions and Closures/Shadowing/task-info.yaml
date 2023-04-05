@@ -1,0 +1,19 @@
+type: choice
+is_multiple_choice: false
+options:
+- text: 4 15
+- text: 15 19
+- text: 15 4
+- text: 4 4
+- text: 19 15
+files:
+- name: main.go
+  visible: true
+  text: |+
+    // You can experiment here, it won’t be checked
+
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/22036#comment
+status: Solved
+record: -1
+local_check: false
