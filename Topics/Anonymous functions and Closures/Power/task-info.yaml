@@ -1,0 +1,34 @@
+type: code
+files:
+- name: main.go
+  visible: true
+  text: |-
+    package main
+
+    import (
+        "fmt"
+    )
+
+    func main() {
+        var base, exponent int
+        fmt.Scan(&base, &exponent)
+
+        pow := ?(n, e int) ? {
+            result := 1
+            for e > 0 {
+                result *= n
+                e--
+            }
+            return result
+        }
+
+        fmt.Println(?)
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/22038#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Wed, 05 Apr 2023 08:57:32 UTC"
+record: -1
+submission_language: go
